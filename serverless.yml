@@ -1,0 +1,31 @@
+service:
+  name: apollo-federation-lambda-service-boilerplate
+#app: your-app-name
+#tenant: your-tenant-name
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+functions:
+  graphql:
+    name: federated-service
+    handler: handler.graphqlHandler
+    events:
+      - http:
+          method: get
+          path: graphql
+          cors: true
+      - http:
+          method: post
+          path: graphql
+          cors: true
+
+custom:
+  serverless-offline:
+    port: 4000
